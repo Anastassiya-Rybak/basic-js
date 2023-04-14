@@ -20,7 +20,6 @@ function calculateHanoi(disksNumber, turnsSpeed) {
     seconds: 0
   };
   res.turns = Math.floor((2 ** disksNumber) - 1);
-  console.log(res.turns);
   let turnForSec = (turnsSpeed / 60) / 60;
   res.seconds = Math.floor(res.turns / turnForSec);
   return res;

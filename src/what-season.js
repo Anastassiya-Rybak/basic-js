@@ -18,7 +18,7 @@ function getSeason(date) {
   }
 
   if(isNaN(Date.parse(date.toString())) || Date.parse(date.toString()) > Date.parse(new Date())){
-    return 'Invalid date!';
+    throw new Error('Invalid date!');
   }
 
   if (!(date instanceof Date) || isNaN(date) || Object.prototype.toString.call(date) !== '[object Date]')  {
