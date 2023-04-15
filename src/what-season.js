@@ -13,21 +13,16 @@ const { NotImplementedError } = require('../extensions/index.js');
  */
 function getSeason(date) {
 
-  if (typeof date !== 'object' || date === null || Array.isArray(date)) {
+  if (date == null) {
     return 'Unable to determine the time of year!';
   }
 
-  if(isNaN(Date.parse(date.toString())) || Date.parse(date.toString()) > Date.parse(new Date())){
-    throw new Error('Invalid date!');
+  if (Object.hasOwn(date, 'toString')){
+    return "Invalid date!";
   }
 
-  if (!(date instanceof Date) || isNaN(date) || Object.prototype.toString.call(date) !== '[object Date]')  {
-    return 'Invalid date!';
-  }
-
-  let month = date.getMonth();
-  if (typeof month == 'number'){
-    switch (month) {
+  if (date instanceof Date){
+    switch (date.getMonth()) {
       case 11 :
         return 'winter';
       case 0 :
@@ -54,7 +49,11 @@ function getSeason(date) {
         return 'autumn';
     }
   }else{
-    return 'Invalid date!';
+    return "Invalid date!";
+  }
+
+  if (typeof date !== 'object' || Object.prototype.toString.call(date) !== '[object Date]')  {
+    return "Invalid date!";
   }
 }
 

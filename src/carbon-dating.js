@@ -22,8 +22,8 @@ function dateSample(sampleActivity) {
   if (typeof sampleActivity === 'string'){
     let curr = Number(sampleActivity);
     if (curr != NaN && curr != 0 && curr < MODERN_ACTIVITY && curr > 0){
-      const speedOfReaction = Number((0.693 / HALF_LIFE_PERIOD).toFixed(10));
-      number = (curr / MODERN_ACTIVITY) / speedOfReaction ;
+      let speedOfReaction = Number(0.693 / HALF_LIFE_PERIOD);
+      number = Math.log(MODERN_ACTIVITY / curr) / speedOfReaction ;
     }else{return false};
   } else { return false };
   return Math.ceil(number);
