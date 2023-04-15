@@ -5,31 +5,31 @@ const { NotImplementedError } = require('../extensions/index.js');
  * 
  */
 const chainMaker = {
-  chainContent: '',
+  chainContent: [],
   getLength() {
-    return this.chainContent.split('~~').length;
+    return this.chainContent.length;
   },
   addLink(value) {
-    let addLink;
-    if (toString(value).length != 0){
-      let forPush = '(' + toString(value) + ')';
-      if(this.chainContent.length > 0){
-        addLink = this.chainContent.split('~~').push(forPush).join('~~');} else {addLink = Array.of(this.chainContent).push(forPush).toString();}
-    } else {
-      addLink = this.chainContent.split('~~').push('()').join('~~');
-    };
-    this.chainContent = addLink;
+    this.chainContent.push(`( ${value} )`);
+    return this;
  },
   removeLink(position) {
-    if (typeof position != 'number' || position > this.chainContent.split('~~').length-1 || position < 0 || Number.isInteger(position) == false){
+    if (typeof position != 'number' || position > this.getLength() || position < 1 || Number.isInteger(position) == false){
+      this.chainContent.length = 0;
       throw new Error("You can't remove incorrect link!");
-    }else{ this.chainContent = this.chainContent.split('~~').splice(position-1, 1).join('~~');};
+    }else{ 
+      this.chainContent.splice(position-1, 1);
+      return this;
+    };
   },
   reverseChain() {
-    this.chainContent = this.chainContent.split('~~').reverse().join('~~');
+    this.chainContent.reverse();
+    return this;
   },
   finishChain() {
-    return this.chainContent;
+    let full = this.chainContent.join('~~');
+    this.chainContent.length = 0;
+    return full;
   }
 };
 
